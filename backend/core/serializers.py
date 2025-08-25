@@ -1,6 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import User
+from rest_framework import serializers
+from .models import Event
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'title', 'date', 'is_private', 'organizer']
+        extra_kwargs = {'organizer': {'read_only': True}}
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)

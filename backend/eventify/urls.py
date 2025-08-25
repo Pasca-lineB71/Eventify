@@ -1,29 +1,18 @@
-"""
-URL configuration for eventify project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
-from core.views import test_view, RegisterView, LoginView,protected_view
+from core.views import test_view, RegisterView, LoginView, protected_view, list_public_events, create_event, update_event, delete_event, list_organizer_events
 from rest_framework_simplejwt.views import TokenRefreshView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/test/', test_view, name="test_api"),
     path('api/register/', RegisterView.as_view(), name="register"),
     path('api/login/', LoginView.as_view(), name="login"),
-    path('api/protected/', protected_view, name="protected"),  # Nouvelle URL
+    path('api/protected/', protected_view, name="protected"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    path('api/list-public-events/', list_public_events, name="list_public_events"),
+    path('api/create-event/', create_event, name="create_event"),
+    path('api/update-event/<int:event_id>/', update_event, name="update_event"),
+    path('api/delete-event/<int:event_id>/', delete_event, name="delete_event"),
+    path('api/list-organizer-events/', list_organizer_events, name="list_organizer_events"),
 ]
